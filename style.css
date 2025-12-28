@@ -1,0 +1,294 @@
+/* Custom Styles for Physics Game */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.8);
+}
+
+/* Canvas styles */
+#gameCanvas {
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+/* Input number styling - remove spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Animation keyframes */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+    }
+}
+
+@keyframes success-bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animation classes */
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-success {
+    animation: success-bounce 0.5s ease-in-out;
+}
+
+.animate-error {
+    animation: shake 0.3s ease-in-out;
+}
+
+.animate-slide-up {
+    animation: slide-up 0.3s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Topic cards hover effect */
+.topic-card {
+    transition: all 0.3s ease;
+}
+
+.topic-card:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Formula styling */
+.formula {
+    font-family: 'Times New Roman', serif;
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    text-align: center;
+}
+
+.formula-highlight {
+    color: #60a5fa;
+    font-weight: bold;
+}
+
+/* Input field styling */
+.input-field {
+    background: rgba(30, 41, 59, 0.8);
+    border: 2px solid rgba(100, 116, 139, 0.3);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: rgba(59, 130, 246, 0.8);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.input-field.error {
+    border-color: rgba(239, 68, 68, 0.8);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+}
+
+.input-field.success {
+    border-color: rgba(16, 185, 129, 0.8);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+/* Given values styling */
+.given-value {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(30, 41, 59, 0.5);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.given-label {
+    color: #94a3b8;
+    font-size: 0.875rem;
+}
+
+.given-number {
+    color: #60a5fa;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Feedback styling */
+.feedback-success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
+    border: 2px solid rgba(16, 185, 129, 0.5);
+}
+
+.feedback-partial {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
+    border: 2px solid rgba(245, 158, 11, 0.5);
+}
+
+.feedback-error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+    border: 2px solid rgba(239, 68, 68, 0.5);
+}
+
+/* Hint styling */
+.hint-item {
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 3px solid #3b82f6;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Level card styling */
+.level-card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 2px solid rgba(100, 116, 139, 0.3);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.level-card:hover:not(.locked) {
+    border-color: rgba(59, 130, 246, 0.5);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.level-card.completed {
+    border-color: rgba(16, 185, 129, 0.5);
+}
+
+.level-card.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.level-card.current {
+    border-color: rgba(59, 130, 246, 0.8);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Explanation step styling */
+.explanation-step {
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.explanation-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    #gameCanvas {
+        height: 300px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    #gameCanvas {
+        height: 250px !important;
+    }
+    
+    .formula {
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .input-field {
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+    }
+}

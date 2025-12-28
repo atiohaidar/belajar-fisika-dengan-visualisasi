@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Fisika - Belajar Fisika dengan Menyenangkan!</title>
+    <meta name="description" content="Game edukasi fisika interaktif untuk belajar GLB, GLBB, dan Gerak Parabola">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen text-white">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🎮</span>
+                <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                    Fisika Game
+                </h1>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div id="levelIndicator" class="hidden md:flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full">
+                    <span class="text-slate-400 text-sm">Level</span>
+                    <span id="currentLevel" class="font-bold text-blue-400">1</span>
+                    <span class="text-slate-500">/</span>
+                    <span id="totalLevels" class="text-slate-400">10</span>
+                </div>
+
+                <div
+                    class="flex items-center gap-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 px-4 py-2 rounded-full border border-yellow-500/30">
+                    <span class="text-yellow-400">⭐</span>
+                    <span id="totalScore" class="font-bold text-yellow-300">0</span>
+                </div>
+
+                <button id="menuBtn" class="p-2 hover:bg-slate-700 rounded-lg transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-20 pb-8">
+
+        <!-- Menu Screen -->
+        <section id="menuScreen" class="min-h-[80vh] flex flex-col items-center justify-center">
+            <div class="text-center mb-12">
+                <h2
+                    class="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                    🚀 Fisika Game
+                </h2>
+                <p class="text-slate-400 text-lg max-w-md mx-auto">
+                    Belajar fisika dengan cara yang menyenangkan! Hitung, eksperimen, dan lihat hasilnya secara
+                    langsung.
+                </p>
+            </div>
+
+            <!-- Topic Selection -->
+            <div class="grid md:grid-cols-3 gap-6 max-w-4xl w-full mb-8">
+
+                <!-- GLB Card -->
+                <button class="topic-card group" data-topic="glb">
+                    <div
+                        class="bg-gradient-to-br from-blue-600/20 to-blue-800/20 p-6 rounded-2xl border border-blue-500/30 hover:border-blue-400/50 transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20">
+                        <div class="text-4xl mb-4">🚗</div>
+                        <h3 class="text-xl font-bold text-blue-300 mb-2">GLB</h3>
+                        <p class="text-slate-400 text-sm mb-4">Gerak Lurus Beraturan</p>
+                        <div class="text-xs text-slate-500 bg-slate-800/50 px-3 py-1 rounded-full inline-block">
+                            v = s / t
+                        </div>
+                        <div class="mt-4 flex items-center justify-between text-sm">
+                            <span class="text-slate-500">Level 1-3</span>
+                            <span id="glbProgress" class="text-blue-400">0/3 ⭐</span>
+                        </div>
+                    </div>
+                </button>
+
+                <!-- GLBB Card -->
+                <button class="topic-card group" data-topic="glbb">
+                    <div
+                        class="bg-gradient-to-br from-purple-600/20 to-purple-800/20 p-6 rounded-2xl border border-purple-500/30 hover:border-purple-400/50 transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20">
+                        <div class="text-4xl mb-4">🚀</div>
+                        <h3 class="text-xl font-bold text-purple-300 mb-2">GLBB</h3>
+                        <p class="text-slate-400 text-sm mb-4">Gerak Lurus Berubah Beraturan</p>
+                        <div class="text-xs text-slate-500 bg-slate-800/50 px-3 py-1 rounded-full inline-block">
+                            s = v₀t + ½at²
+                        </div>
+                        <div class="mt-4 flex items-center justify-between text-sm">
+                            <span class="text-slate-500">Level 4-6</span>
+                            <span id="glbbProgress" class="text-purple-400">0/3 ⭐</span>
+                        </div>
+                    </div>
+                </button>
+
+                <!-- Parabola Card -->
+                <button class="topic-card group" data-topic="parabola">
+                    <div
+                        class="bg-gradient-to-br from-teal-600/20 to-teal-800/20 p-6 rounded-2xl border border-teal-500/30 hover:border-teal-400/50 transition-all hover:scale-105 hover:shadow-lg hover:shadow-teal-500/20">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h3 class="text-xl font-bold text-teal-300 mb-2">Parabola</h3>
+                        <p class="text-slate-400 text-sm mb-4">Gerak Parabola</p>
+                        <div class="text-xs text-slate-500 bg-slate-800/50 px-3 py-1 rounded-full inline-block">
+                            x = v₀·cos(θ)·t
+                        </div>
+                        <div class="mt-4 flex items-center justify-between text-sm">
+                            <span class="text-slate-500">Level 7-10</span>
+                            <span id="parabolaProgress" class="text-teal-400">0/4 ⭐</span>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <button id="continueBtn"
+                class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 px-8 py-3 rounded-full font-bold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
+                🎮 Lanjutkan Permainan
+            </button>
+        </section>
+
+        <!-- Game Screen -->
+        <section id="gameScreen" class="hidden">
+            <div class="grid lg:grid-cols-3 gap-6">
+
+                <!-- Left Panel: Question & Input -->
+                <div class="lg:col-span-1 space-y-4">
+
+                    <!-- Question Panel -->
+                    <div id="questionPanel"
+                        class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-2xl">📋</span>
+                            <h3 class="font-bold text-lg">Soal</h3>
+                        </div>
+
+                        <div id="questionContent">
+                            <!-- Will be filled dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Formula Panel -->
+                    <div id="formulaPanel"
+                        class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-2xl">📐</span>
+                            <h3 class="font-bold text-lg">Rumus</h3>
+                        </div>
+
+                        <div id="formulaContent" class="space-y-2">
+                            <!-- Will be filled dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Input Panel -->
+                    <div id="inputPanel" class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-2xl">✏️</span>
+                            <h3 class="font-bold text-lg">Jawaban</h3>
+                        </div>
+
+                        <form id="answerForm" class="space-y-4">
+                            <div id="inputFields">
+                                <!-- Will be filled dynamically -->
+                            </div>
+
+                            <button type="submit" id="submitBtn"
+                                class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 px-6 py-3 rounded-xl font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2">
+                                <span>🚀</span>
+                                <span>Jalankan Simulasi</span>
+                            </button>
+                        </form>
+
+                        <button id="hintBtn"
+                            class="w-full mt-3 bg-slate-700/50 hover:bg-slate-700 px-4 py-2 rounded-xl text-sm text-slate-400 hover:text-white transition-colors flex items-center justify-center gap-2">
+                            <span>💡</span>
+                            <span>Tampilkan Petunjuk</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Visualization & Feedback -->
+                <div class="lg:col-span-2 space-y-4">
+
+                    <!-- Canvas Container -->
+                    <div class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-4 relative">
+                        <canvas id="gameCanvas" class="w-full rounded-xl bg-slate-900" style="height: 400px;"></canvas>
+
+                        <!-- Simulation Info Overlay -->
+                        <div id="simInfo"
+                            class="absolute bottom-6 left-6 right-6 bg-slate-900/80 backdrop-blur rounded-xl p-4 hidden">
+                            <div class="flex items-center justify-around text-center">
+                                <div>
+                                    <div class="text-slate-400 text-sm">Waktu</div>
+                                    <div id="simTime" class="text-2xl font-bold text-blue-400">0.0 <span
+                                            class="text-sm">s</span></div>
+                                </div>
+                                <div class="w-px h-12 bg-slate-700"></div>
+                                <div>
+                                    <div class="text-slate-400 text-sm">Posisi</div>
+                                    <div id="simPosition" class="text-2xl font-bold text-green-400">0.0 <span
+                                            class="text-sm">m</span></div>
+                                </div>
+                                <div class="w-px h-12 bg-slate-700"></div>
+                                <div>
+                                    <div class="text-slate-400 text-sm">Kecepatan</div>
+                                    <div id="simVelocity" class="text-2xl font-bold text-purple-400">0.0 <span
+                                            class="text-sm">m/s</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Panel -->
+                    <div id="feedbackPanel"
+                        class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6 hidden">
+                        <div id="feedbackContent">
+                            <!-- Will be filled dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Explanation Panel -->
+                    <div id="explanationPanel"
+                        class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6 hidden">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-2xl">📖</span>
+                            <h3 class="font-bold text-lg">Penjelasan</h3>
+                        </div>
+
+                        <div id="explanationContent" class="prose prose-invert max-w-none">
+                            <!-- Will be filled dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Level Select Modal -->
+        <div id="levelModal"
+            class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-slate-800 rounded-2xl border border-slate-700 max-w-2xl w-full max-h-[80vh] overflow-hidden">
+                <div class="p-6 border-b border-slate-700 flex items-center justify-between">
+                    <h3 id="modalTitle" class="text-xl font-bold">Pilih Level</h3>
+                    <button id="closeLevelModal" class="p-2 hover:bg-slate-700 rounded-lg transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="levelList" class="p-6 grid gap-3 max-h-[60vh] overflow-y-auto">
+                    <!-- Will be filled dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Hint Modal -->
+        <div id="hintModal"
+            class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-slate-800 rounded-2xl border border-slate-700 max-w-md w-full">
+                <div class="p-6 border-b border-slate-700 flex items-center justify-between">
+                    <h3 class="text-xl font-bold flex items-center gap-2">
+                        <span>💡</span> Petunjuk
+                    </h3>
+                    <button id="closeHintModal" class="p-2 hover:bg-slate-700 rounded-lg transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="hintContent" class="p-6">
+                    <!-- Will be filled dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+        class="fixed bottom-0 left-0 right-0 bg-slate-900/80 backdrop-blur-md border-t border-slate-700 py-2 text-center text-sm text-slate-500">
+        <p>Dibuat untuk belajar fisika dengan menyenangkan 🎓</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/storage.js"></script>
+    <script src="js/physics/PhysicsBase.js"></script>
+    <script src="js/physics/GLBPhysics.js"></script>
+    <script src="js/physics/GLBBPhysics.js"></script>
+    <script src="js/physics/ParabolaPhysics.js"></script>
+    <script src="js/core/Renderer.js"></script>
+    <script src="js/core/Engine.js"></script>
+    <script src="js/levels/LevelManager.js"></script>
+    <script src="js/ui/QuestionPanel.js"></script>
+    <script src="js/ui/InputPanel.js"></script>
+    <script src="js/ui/FeedbackPanel.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
