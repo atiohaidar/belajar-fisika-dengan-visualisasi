@@ -1,9 +1,14 @@
+import { Sprites } from './Sprites.js';
+import { Environment } from './Environment.js';
+import { TrailManager } from './TrailManager.js';
+import { CONSTANTS } from '../utils/constants.js';
+
 /**
  * Renderer - Core canvas management
  * Delegates drawing to: Sprites, Environment, TrailManager
  */
 
-class Renderer {
+export class Renderer {
     /**
      * Constructor
      * @param {HTMLCanvasElement} canvas - Canvas element

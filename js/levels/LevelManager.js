@@ -1,3 +1,8 @@
+import { Storage } from '../utils/storage.js';
+import { GLB_LEVELS } from './glb-levels.js';
+import { GLBB_LEVELS } from './glbb-levels.js';
+import { PARABOLA_LEVELS } from './parabola-levels.js';
+
 /**
  * LevelManager - Mengelola level dan progress
  * 
@@ -7,7 +12,7 @@
  * - parabola-levels.js (Level 11-14)
  */
 
-const LevelManager = {
+export const LevelManager = {
     // Merge all levels from separate files
     levels: [
         ...GLB_LEVELS,

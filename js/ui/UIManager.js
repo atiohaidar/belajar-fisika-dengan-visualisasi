@@ -2,7 +2,7 @@
  * UIManager - Mengelola UI screens, modals, dan updates
  */
 
-const UIManager = {
+export const UIManager = {
     // DOM Element references
     elements: {
         // Screens

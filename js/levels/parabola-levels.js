@@ -3,7 +3,7 @@
  * Level 11-14: Mencari kecepatan dan sudut tembak
  */
 
-const PARABOLA_LEVELS = [
+export const PARABOLA_LEVELS = [
     // Level 11: Target 20m
     {
         id: 11,
@@ -199,6 +199,57 @@ const PARABOLA_LEVELS = [
                 <li>Gerak Lurus Berubah Beraturan (GLBB)</li>
                 <li>Gerak Parabola</li>
             </ul>
+        `
+    },
+    // Level 15: Target di Atas Tebing
+    {
+        id: 15,
+        type: 'PARABOLA',
+        title: 'Target di Atas Tebing',
+        description: 'Tantangan Baru! Target berada di atas tebing setinggi 10 meter pada jarak 30 meter. Perhitungkan ketinggian target!',
+        given: {
+            targetX: { value: 30, unit: 'm', label: 'Jarak target' },
+            targetY: { value: 10, unit: 'm', label: 'Tinggi target' },
+            gravity: { value: 10, unit: 'm/s²', label: 'Gravitasi' },
+            initialHeight: { value: 0, unit: 'm', label: 'Ketinggian awal' }
+        },
+        find: ['velocity', 'angle'],
+        inputs: [
+            {
+                id: 'velocity',
+                label: 'Kecepatan Awal (v₀)',
+                unit: 'm/s',
+                type: 'number',
+                min: 0,
+                max: 100,
+                placeholder: 'Masukkan kecepatan...'
+            },
+            {
+                id: 'angle',
+                label: 'Sudut Tembak (θ)',
+                unit: '°',
+                type: 'number',
+                min: 0,
+                max: 90,
+                placeholder: 'Masukkan sudut...'
+            }
+        ],
+        solution: { velocity: 20.71, angle: 60 },
+        tolerance: 0.15,
+        visualization: { type: 'parabola', entity: 'ball', showGrid: true, showTrajectory: true },
+        hints: [
+            'Target memiliki ketinggian (y = 10m). Bola harus mendarat di sana!',
+            'Gunakan persamaan parabola: y = x·tan(θ) - (g·x²) / (2·v₀²·cos²(θ))',
+            'Substitusi x=30 dan y=10. Coba dengan θ=60°',
+            'Jika θ=60°, hitung v₀ yang dibutuhkan.'
+        ],
+        formulas: [
+            'y = x·tan(θ) - (g·x²) / (2·v₀²·cos²(θ))'
+        ],
+        explanation: `
+            <p><strong>Gerak Parabola pada Bidang Miring/Bertingkat</strong></p>
+            <p>Ketika target tidak berada di ketinggian yang sama, kita tidak bisa menggunakan rumus praktis R = v₀²·sin(2θ)/g.</p>
+            <p>Kita harus kembali ke persamaan posisi gerak parabola dasar untuk x dan y.</p>
         `
     }
 ];

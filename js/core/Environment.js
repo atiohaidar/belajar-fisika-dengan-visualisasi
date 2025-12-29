@@ -1,9 +1,11 @@
+import { CONSTANTS } from '../utils/constants.js';
+
 /**
  * Environment - Drawing background, grid, axes, ground, targets
  * Requires: Renderer instance passed as 'renderer' parameter
  */
 
-const Environment = {
+export const Environment = {
     /**
      * Draw background gradient
      * @param {Renderer} renderer - Renderer instance

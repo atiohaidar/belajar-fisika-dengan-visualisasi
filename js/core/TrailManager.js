@@ -1,9 +1,11 @@
+import { CONSTANTS } from '../utils/constants.js';
+
 /**
  * TrailManager - Managing trajectory trail/path
  * Requires: Renderer instance
  */
 
-const TrailManager = {
+export const TrailManager = {
     /**
      * Add point to trail
      * @param {Renderer} renderer - Renderer instance

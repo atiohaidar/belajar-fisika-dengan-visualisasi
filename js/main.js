@@ -1,8 +1,18 @@
+import { Renderer } from './core/Renderer.js';
+import { Engine } from './core/Engine.js';
+import { LevelManager } from './levels/LevelManager.js';
+import { QuestionPanel } from './ui/QuestionPanel.js';
+import { InputPanel } from './ui/InputPanel.js';
+import { FeedbackPanel } from './ui/FeedbackPanel.js';
+import { UIManager } from './ui/UIManager.js';
+import { Storage } from './utils/storage.js';
+import { CONSTANTS } from './utils/constants.js';
+
 /**
  * Main Application - Entry point dan koordinasi semua komponen
  */
 
-class App {
+export class App {
     constructor() {
         // Core components
         this.canvas = document.getElementById('gameCanvas');

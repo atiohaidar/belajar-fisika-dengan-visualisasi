@@ -2,7 +2,7 @@
  * InputPanel - Mengelola input form untuk jawaban
  */
 
-const InputPanel = {
+export const InputPanel = {
     currentInputs: {},
     onInputChange: null,
 

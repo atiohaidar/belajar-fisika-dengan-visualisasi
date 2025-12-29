@@ -1,3 +1,6 @@
+import { PhysicsBase } from './PhysicsBase.js';
+import { Helpers } from '../utils/helpers.js';
+
 /**
  * GLBBPhysics - Gerak Lurus Berubah Beraturan
  * Rumus dasar: 
@@ -6,7 +9,7 @@
  *   v² = v₀² + 2as
  */
 
-class GLBBPhysics extends PhysicsBase {
+export class GLBBPhysics extends PhysicsBase {
     /**
      * Hitung hasil berdasarkan input user
      * @param {Object} inputs - Input dari user (initialVelocity, acceleration)

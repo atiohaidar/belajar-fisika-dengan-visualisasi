@@ -1,9 +1,11 @@
+import { CONSTANTS } from './constants.js';
+
 /**
  * Storage Manager
  * Mengelola penyimpanan progress dan pengaturan ke localStorage
  */
 
-const Storage = {
+export const Storage = {
     /**
      * Simpan data ke localStorage
      * @param {string} key - Nama key

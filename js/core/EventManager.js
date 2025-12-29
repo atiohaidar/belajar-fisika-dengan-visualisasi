@@ -1,9 +1,12 @@
+import { UIManager } from '../ui/UIManager.js';
+import { LevelManager } from ('../levels/LevelManager.js');
+
 /**
  * EventManager - Centralized event binding
  * Handles user interactions and delegates to appropriate handlers
  */
 
-const EventManager = {
+export const EventManager = {
     // Reference to app instance
     app: null,
 

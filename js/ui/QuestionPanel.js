@@ -2,7 +2,7 @@
  * QuestionPanel - Menampilkan soal dan rumus
  */
 
-const QuestionPanel = {
+export const QuestionPanel = {
     /**
      * Render panel soal
      * @param {Object} level - Level configuration

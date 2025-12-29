@@ -3,7 +3,7 @@
  * Level 1-7: Mencari kecepatan, jarak, dan waktu
  */
 
-const GLB_LEVELS = [
+export const GLB_LEVELS = [
     // Level 1: Mencari kecepatan (basic)
     {
         id: 1,

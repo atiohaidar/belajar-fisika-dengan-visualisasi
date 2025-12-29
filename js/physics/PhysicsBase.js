@@ -1,9 +1,11 @@
+import { Helpers } from '../utils/helpers.js';
+
 /**
  * PhysicsBase - Base class untuk semua modul fisika
  * Menyediakan interface standar untuk perhitungan fisika
  */
 
-class PhysicsBase {
+export class PhysicsBase {
     /**
      * Constructor
      * @param {Object} levelConfig - Konfigurasi level

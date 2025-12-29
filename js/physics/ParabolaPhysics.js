@@ -1,3 +1,7 @@
+import { PhysicsBase } from './PhysicsBase.js';
+import { Helpers } from '../utils/helpers.js';
+import { CONSTANTS } from '../utils/constants.js';
+
 /**
  * ParabolaPhysics - Gerak Parabola (Gerak Peluru)
  * Rumus dasar:
@@ -7,7 +11,7 @@
  *   Tinggi maksimum: H = v₀² × sin²(θ) / (2g)
  */
 
-class ParabolaPhysics extends PhysicsBase {
+export class ParabolaPhysics extends PhysicsBase {
     /**
      * Hitung hasil berdasarkan input user
      * @param {Object} inputs - Input dari user (velocity, angle)
@@ -28,31 +32,65 @@ class ParabolaPhysics extends PhysicsBase {
         const initialHeight = this.given.initialHeight?.value || 0;
 
         // Komponen kecepatan
+        // Komponen kecepatan
         const vx = v0 * Math.cos(angleRad);
         const vy = v0 * Math.sin(angleRad);
 
-        // Waktu untuk mencapai tanah (y = 0)
-        // y = y₀ + v₀y × t - ½gt² = 0
-        // Menggunakan rumus kuadrat
+        // Hitung waktu untuk mencapai ketinggian target (y = targetY)
+        // y = y₀ + v₀y × t - ½gt² = targetY
+        // ½gt² - v₀y × t + (targetY - y₀) = 0
+        // a = 0.5 * g
+        // b = -vy
+        // c = targetY - initialHeight
+
         let timeOfFlight;
+        let flightTimeY0; // Waktu sampai tanah dasar (y=0)
+
         if (g !== 0) {
-            const discriminant = (vy * vy) + (2 * g * initialHeight);
-            timeOfFlight = (vy + Math.sqrt(Math.max(0, discriminant))) / g;
+            // Waktu sampai y=0 (untuk visualisasi dasar)
+            const discY0 = (vy * vy) + (2 * g * initialHeight);
+            flightTimeY0 = (vy + Math.sqrt(Math.max(0, discY0))) / g;
+
+            // Waktu sampai y=targetY
+            const a = 0.5 * g;
+            const b = -vy;
+            const c = targetY - initialHeight;
+            const discriminant = (b * b) - (4 * a * c);
+
+            if (discriminant >= 0) {
+                // Ambil waktu yang lebih besar (saat turun/mendarat)
+                // Rumus ABC: t = (-b ± √D) / 2a
+                // Karena b = -vy, maka -b = vy
+                timeOfFlight = (vy + Math.sqrt(discriminant)) / (2 * a);
+            } else {
+                // Tidak pernah mencapai ketinggian target
+                timeOfFlight = 0;
+            }
         } else {
             timeOfFlight = 5;
+            flightTimeY0 = 5;
         }
 
-        // Jangkauan maksimum
-        const range = vx * timeOfFlight;
+        // Jangkauan pada ketinggian target
+        const rangeAtTargetY = vx * timeOfFlight;
+
+        // Jangkauan di tanah (y=0)
+        const rangeY0 = vx * flightTimeY0;
 
         // Tinggi maksimum
         const timeToMaxHeight = vy / g;
         const maxHeight = initialHeight + (vy * timeToMaxHeight) - (0.5 * g * timeToMaxHeight * timeToMaxHeight);
 
-        // Cek apakah kena target
-        const hitX = range;
+        // Hitung error jarak
+        // Kita bandingkan posisi x bola saat berada di ketinggian targetY dengan targetX
+        const hitX = rangeAtTargetY;
         const distanceToTarget = Math.abs(hitX - targetX);
         const tolerance = targetX * this.tolerance || 1;
+
+        // Jika discriminant < 0, berarti bola tidak pernah sampai ketinggian target -> fail
+        const reachedTarget = (g !== 0 && ((vy * vy) - (2 * g * (targetY - initialHeight))) >= 0)
+            ? distanceToTarget <= tolerance
+            : false;
 
         return {
             velocity: v0,
@@ -62,14 +100,16 @@ class ParabolaPhysics extends PhysicsBase {
             vy: Helpers.roundTo(vy, 2),
             gravity: g,
             timeOfFlight: Helpers.roundTo(timeOfFlight, 2),
-            range: Helpers.roundTo(range, 2),
+            flightTimeY0: Helpers.roundTo(flightTimeY0, 2),
+            range: Helpers.roundTo(rangeAtTargetY, 2), // Range relevan adalah di ketinggian target
+            rangeY0: Helpers.roundTo(rangeY0, 2),
             maxHeight: Helpers.roundTo(maxHeight, 2),
             timeToMaxHeight: Helpers.roundTo(timeToMaxHeight, 2),
             targetX,
             targetY,
             hitX: Helpers.roundTo(hitX, 2),
             distanceToTarget: Helpers.roundTo(distanceToTarget, 2),
-            reachedTarget: distanceToTarget <= tolerance,
+            reachedTarget: reachedTarget,
         };
     }
 
@@ -141,20 +181,22 @@ class ParabolaPhysics extends PhysicsBase {
         const g = this.given.gravity?.value || CONSTANTS.PHYSICS.GRAVITY;
         const initialHeight = this.given.initialHeight?.value || 0;
 
-        // Hitung waktu jatuh (time of flight)
-        // Vy = v0 * sin(theta)
-        const vy = v0 * Math.sin(angleRad);
-        let timeOfFlight;
-        if (g !== 0) {
-            const discriminant = (vy * vy) + (2 * g * initialHeight);
-            timeOfFlight = (vy + Math.sqrt(Math.max(0, discriminant))) / g;
-        } else {
-            timeOfFlight = 999;
+        // Kita gunakan hasil kalkulasi lengkap dari method calculate
+        // Ini lebih efisien dan konsisten daripada menghitung ulang
+        // Namun kita perlu mock inputs object
+        const calcResult = this.calculate(inputs);
+
+        // Tentukan batas waktu simulasi visual
+        // Jika kena target, berhenti di target (timeOfFlight)
+        // Jika meleset, jatuh sampai tanah (flightTimeY0)
+        let maxTime = calcResult.flightTimeY0;
+
+        if (calcResult.reachedTarget) {
+            maxTime = calcResult.timeOfFlight;
         }
 
-        // Batasi waktu agar tidak menembus tanah (cap at landing time)
-        // Gunakan sedikit buffer time untuk memastikan y menyentuh 0
-        const simulationTime = Math.min(t, timeOfFlight);
+        // Batasi waktu
+        const simulationTime = Math.min(t, maxTime);
 
         // x = v₀ × cos(θ) × t
         const x = v0 * Math.cos(angleRad) * simulationTime;

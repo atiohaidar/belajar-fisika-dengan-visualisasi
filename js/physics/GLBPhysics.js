@@ -1,9 +1,12 @@
+import { PhysicsBase } from './PhysicsBase.js';
+import { Helpers } from '../utils/helpers.js';
+
 /**
  * GLBPhysics - Gerak Lurus Beraturan
  * Rumus dasar: v = s/t, s = v×t, t = s/v
  */
 
-class GLBPhysics extends PhysicsBase {
+export class GLBPhysics extends PhysicsBase {
     /**
      * Hitung hasil berdasarkan input user
      * @param {Object} inputs - Input dari user (velocity)

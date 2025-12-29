@@ -3,7 +3,7 @@
  * Level 8-10: Mencari percepatan
  */
 
-const GLBB_LEVELS = [
+export const GLBB_LEVELS = [
     // Level 8: Mobil dari diam
     {
         id: 8,

@@ -1,9 +1,16 @@
+import { GLBPhysics } from '../physics/GLBPhysics.js';
+import { GLBBPhysics } from '../physics/GLBBPhysics.js';
+import { ParabolaPhysics } from '../physics/ParabolaPhysics.js';
+import { CONSTANTS } from '../utils/constants.js';
+import { Helpers } from '../utils/helpers.js';
+import { Storage } from '../utils/storage.js';
+
 /**
  * Engine - Game engine utama
  * Mengelola game loop, state, dan koordinasi antar komponen
  */
 
-class Engine {
+export class Engine {
     /**
      * Constructor
      * @param {Renderer} renderer - Renderer instance

@@ -1,8 +1,11 @@
+import { CONSTANTS } from '../utils/constants.js';
+import { Helpers } from '../utils/helpers.js';
+
 /**
  * FeedbackPanel - Menampilkan hasil dan feedback
  */
 
-const FeedbackPanel = {
+export const FeedbackPanel = {
     /**
      * Show feedback panel with results
      * @param {Object} result - Simulation result

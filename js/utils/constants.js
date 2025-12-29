@@ -3,14 +3,14 @@
  * Semua nilai konstanta yang digunakan dalam game
  */
 
-const CONSTANTS = {
+export const CONSTANTS = {
     // Konstanta Fisika
     PHYSICS: {
         GRAVITY: 10,           // Percepatan gravitasi (m/s²) - disederhanakan dari 9.8
         GRAVITY_EARTH: 9.8,    // Gravitasi bumi sebenarnya (m/s²)
         GRAVITY_MOON: 1.62,    // Gravitasi bulan (m/s²)
     },
-    
+
     // Pengaturan Canvas
     CANVAS: {
         PADDING: 60,           // Padding dalam pixel
@@ -20,7 +20,7 @@ const CONSTANTS = {
         GROUND_COLOR: '#1e293b',
         SKY_GRADIENT: ['#0f172a', '#1e3a5f'],
     },
-    
+
     // Warna Entitas
     COLORS: {
         CAR: '#3b82f6',        // Biru untuk mobil
@@ -30,41 +30,41 @@ const CONSTANTS = {
         TRAJECTORY: '#60a5fa', // Biru muda untuk lintasan
         TRAJECTORY_PREDICT: 'rgba(96, 165, 250, 0.3)',
     },
-    
+
     // Pengaturan Animasi
     ANIMATION: {
         FPS: 60,
         TIME_SCALE: 1,         // Skala waktu (1 = realtime)
         TRAIL_LENGTH: 50,      // Panjang jejak lintasan
     },
-    
+
     // Pengaturan Scoring
     SCORING: {
         PERFECT: 100,          // Skor sempurna
         CLOSE: 75,             // Skor hampir benar
         PARTIAL: 50,           // Skor sebagian benar
         ATTEMPT: 25,           // Skor mencoba
-        
+
         // Toleransi untuk penilaian
         TOLERANCE_PERFECT: 0.01,  // 1% error untuk sempurna
         TOLERANCE_CLOSE: 0.05,    // 5% error untuk hampir benar
         TOLERANCE_PARTIAL: 0.1,   // 10% error untuk sebagian benar
     },
-    
+
     // Storage Keys
     STORAGE: {
         PROGRESS_KEY: 'fisika_game_progress',
         SETTINGS_KEY: 'fisika_game_settings',
         SCORES_KEY: 'fisika_game_scores',
     },
-    
+
     // Level Types
     LEVEL_TYPES: {
         GLB: 'GLB',
         GLBB: 'GLBB',
         PARABOLA: 'PARABOLA',
     },
-    
+
     // Game States
     GAME_STATES: {
         MENU: 'MENU',

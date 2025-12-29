@@ -3,7 +3,7 @@
  * Centralized settings for the Game Fisika application
  */
 
-const GameConfig = {
+export const GameConfig = {
     // Game Settings
     game: {
         name: 'Fisika Game',

@@ -3,7 +3,7 @@
  * Fungsi-fungsi bantu yang digunakan di seluruh game
  */
 
-const Helpers = {
+export const Helpers = {
     /**
      * Konversi derajat ke radian
      * @param {number} degrees - Sudut dalam derajat

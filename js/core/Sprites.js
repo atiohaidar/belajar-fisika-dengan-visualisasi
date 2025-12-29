@@ -1,9 +1,12 @@
+import { CONSTANTS } from '../utils/constants.js';
+import { Helpers } from '../utils/helpers.js';
+
 /**
  * Sprites - Drawing entities (car, ball, cannon)
  * Requires: Renderer instance passed as 'renderer' parameter
  */
 
-const Sprites = {
+export const Sprites = {
     /**
      * Draw car (for GLB and GLBB)
      * @param {Renderer} renderer - Renderer instance
