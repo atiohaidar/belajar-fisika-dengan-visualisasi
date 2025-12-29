@@ -14,8 +14,12 @@ class ParabolaPhysics extends PhysicsBase {
      * @returns {Object} Hasil perhitungan
      */
     calculate(inputs) {
-        const v0 = parseFloat(inputs.velocity) || 0;  // Kecepatan awal
-        const angleDeg = parseFloat(inputs.angle) || 45;  // Sudut dalam derajat
+        // Parse inputs dengan fallback yang tepat
+        const parsedV = parseFloat(inputs.velocity);
+        const parsedAngle = parseFloat(inputs.angle);
+
+        const v0 = isNaN(parsedV) ? 0 : parsedV;
+        const angleDeg = isNaN(parsedAngle) ? 45 : parsedAngle;
         const angleRad = Helpers.degreesToRadians(angleDeg);
 
         const g = this.given.gravity?.value || CONSTANTS.PHYSICS.GRAVITY;
@@ -54,8 +58,8 @@ class ParabolaPhysics extends PhysicsBase {
             velocity: v0,
             angle: angleDeg,
             angleRad,
-            vx,
-            vy,
+            vx: Helpers.roundTo(vx, 2),
+            vy: Helpers.roundTo(vy, 2),
             gravity: g,
             timeOfFlight: Helpers.roundTo(timeOfFlight, 2),
             range: Helpers.roundTo(range, 2),
@@ -70,28 +74,97 @@ class ParabolaPhysics extends PhysicsBase {
     }
 
     /**
+     * Cek apakah jawaban benar untuk parabola (berdasarkan posisi jatuh)
+     * @param {Object} inputs - Input dari user
+     * @returns {Object} Hasil pengecekan
+     */
+    checkAnswer(inputs) {
+        // Hitung hasil berdasarkan input user
+        const result = this.calculate(inputs);
+
+        // Pengecekan berdasarkan apakah mengenai target (bukan mencocokkan angka input)
+        const isCorrect = result.reachedTarget;
+
+        // Error dihitung dari jarak ke target (dalam persen terhadap jarak target)
+        const targetX = this.given.targetX?.value || 1;
+        const error = result.distanceToTarget / targetX;
+
+        // Score calculation
+        const scoreData = Helpers.calculateScore(error);
+
+        // Format results agar sesuai format yang diharapkan FeedbackPanel
+        const results = {};
+        const solution = this.solution;
+
+        // Helper function untuk result object
+        const createResult = (key, val) => ({
+            userValue: val,
+            // Jika benar, kita anggap expected valuenya "sesuai input user" agar UI menunjukkan benar
+            // Jika salah, kita tunjukkan kunci jawaban (one possible solution)
+            expectedValue: isCorrect ? val : solution[key],
+            error: isCorrect ? 0 : 1,
+            isCorrect: isCorrect,
+            percentError: isCorrect ? 0 : 100
+        });
+
+        if (inputs.velocity !== undefined) {
+            results.velocity = createResult('velocity', parseFloat(inputs.velocity));
+        }
+
+        if (inputs.angle !== undefined) {
+            results.angle = createResult('angle', parseFloat(inputs.angle));
+        }
+
+        return {
+            results,
+            allCorrect: isCorrect,
+            averageError: error,
+            ...scoreData
+        };
+    }
+
+    /**
      * Dapatkan posisi pada waktu t
      * @param {number} t - Waktu dalam detik
      * @param {Object} inputs - Input dari user
      * @returns {Object} Posisi {x, y}
      */
     getPositionAtTime(t, inputs) {
-        const v0 = parseFloat(inputs.velocity) || 0;
-        const angleDeg = parseFloat(inputs.angle) || 45;
+        // Parse inputs with proper fallbacks for empty/NaN values
+        const parsedV = parseFloat(inputs.velocity);
+        const parsedAngle = parseFloat(inputs.angle);
+
+        const v0 = isNaN(parsedV) ? 0 : parsedV;
+        const angleDeg = isNaN(parsedAngle) ? 45 : parsedAngle;
         const angleRad = Helpers.degreesToRadians(angleDeg);
 
         const g = this.given.gravity?.value || CONSTANTS.PHYSICS.GRAVITY;
         const initialHeight = this.given.initialHeight?.value || 0;
 
+        // Hitung waktu jatuh (time of flight)
+        // Vy = v0 * sin(theta)
+        const vy = v0 * Math.sin(angleRad);
+        let timeOfFlight;
+        if (g !== 0) {
+            const discriminant = (vy * vy) + (2 * g * initialHeight);
+            timeOfFlight = (vy + Math.sqrt(Math.max(0, discriminant))) / g;
+        } else {
+            timeOfFlight = 999;
+        }
+
+        // Batasi waktu agar tidak menembus tanah (cap at landing time)
+        // Gunakan sedikit buffer time untuk memastikan y menyentuh 0
+        const simulationTime = Math.min(t, timeOfFlight);
+
         // x = v₀ × cos(θ) × t
-        const x = v0 * Math.cos(angleRad) * t;
+        const x = v0 * Math.cos(angleRad) * simulationTime;
 
         // y = y₀ + v₀ × sin(θ) × t - ½gt²
-        const y = initialHeight + (v0 * Math.sin(angleRad) * t) - (0.5 * g * t * t);
+        const y = initialHeight + (v0 * Math.sin(angleRad) * simulationTime) - (0.5 * g * simulationTime * simulationTime);
 
         return {
-            x: x,
-            y: Math.max(0, y)  // Tidak boleh di bawah tanah
+            x: Helpers.roundTo(x, 2),
+            y: Helpers.roundTo(Math.max(0, y), 2)
         };
     }
 
@@ -102,8 +175,11 @@ class ParabolaPhysics extends PhysicsBase {
      * @returns {Object} Kecepatan {vx, vy, magnitude}
      */
     getVelocityAtTime(t, inputs) {
-        const v0 = parseFloat(inputs.velocity) || 0;
-        const angleDeg = parseFloat(inputs.angle) || 45;
+        const parsedV = parseFloat(inputs.velocity);
+        const parsedAngle = parseFloat(inputs.angle);
+
+        const v0 = isNaN(parsedV) ? 0 : parsedV;
+        const angleDeg = isNaN(parsedAngle) ? 45 : parsedAngle;
         const angleRad = Helpers.degreesToRadians(angleDeg);
 
         const g = this.given.gravity?.value || CONSTANTS.PHYSICS.GRAVITY;
@@ -168,8 +244,11 @@ class ParabolaPhysics extends PhysicsBase {
      * @returns {Array} Array langkah-langkah penjelasan
      */
     getExplanationSteps(inputs) {
-        const v0 = parseFloat(inputs.velocity) || 0;
-        const angleDeg = parseFloat(inputs.angle) || 45;
+        const parsedV = parseFloat(inputs.velocity);
+        const parsedAngle = parseFloat(inputs.angle);
+
+        const v0 = isNaN(parsedV) ? 0 : parsedV;
+        const angleDeg = isNaN(parsedAngle) ? 45 : parsedAngle;
         const g = this.given.gravity?.value || CONSTANTS.PHYSICS.GRAVITY;
         const targetX = this.given.targetX?.value || 0;
 

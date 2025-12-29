@@ -40,34 +40,45 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 /* Animation keyframes */
 @keyframes pulse-glow {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
     }
+
     50% {
         box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
     }
 }
 
 @keyframes success-bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
 }
 
 @keyframes shake {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(0);
     }
+
     25% {
         transform: translateX(-5px);
     }
+
     75% {
         transform: translateX(5px);
     }
@@ -78,6 +89,7 @@ input[type="number"] {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -88,6 +100,7 @@ input[type="number"] {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -281,12 +294,12 @@ input[type="number"] {
     #gameCanvas {
         height: 250px !important;
     }
-    
+
     .formula {
         font-size: 1rem;
         padding: 0.5rem 0.75rem;
     }
-    
+
     .input-field {
         font-size: 1rem;
         padding: 0.5rem 0.75rem;

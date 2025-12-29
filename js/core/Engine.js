@@ -75,14 +75,18 @@ class Engine {
         if (!this.currentLevel) return;
 
         const given = this.currentLevel.given || {};
+        const solution = this.currentLevel.solution || {};
+        const findType = this.currentLevel.find?.[0];
         let worldWidth = 10;
         let worldHeight = 0;
 
-        // Determine world size based on level
-        if (given.distance) {
+        // Determine world size based on level type
+        if (findType === 'distance') {
+            // For find-distance levels, use solution distance
+            worldWidth = (solution.distance || 100) * 1.5;
+        } else if (given.distance) {
             worldWidth = given.distance.value * 1.5;
-        }
-        if (given.targetX) {
+        } else if (given.targetX) {
             worldWidth = given.targetX.value * 1.5;
         }
 
@@ -174,8 +178,15 @@ class Engine {
         // Get current position
         const position = this.physics.getPositionAtTime(this.animationTime, this.userInputs);
 
-        // For parabola, check if hit ground
-        if (this.currentLevel.type === CONSTANTS.LEVEL_TYPES.PARABOLA && position.y <= 0) {
+        // For parabola, check if hit ground (only after simulation has started)
+        if (this.currentLevel.type === CONSTANTS.LEVEL_TYPES.PARABOLA &&
+            this.animationTime > 0.1 &&
+            position.y <= 0) {
+            // Add final trail point at ground level before completing
+            // Calculate the exact x position when y = 0
+            const result = this.physics.calculate(this.userInputs);
+            const finalX = result.range || position.x;
+            this.renderer.addTrailPoint(finalX, 0);
             this.completeSimulation();
             return;
         }
@@ -311,8 +322,25 @@ class Engine {
         // Draw ground
         this.renderer.drawGround(this.worldWidth);
 
-        // Draw target
-        const targetX = given.distance?.value || given.targetX?.value || 0;
+        // Draw target - determine target position based on level type
+        let targetX = 0;
+        const findType = level.find?.[0];
+
+        if (findType === 'distance') {
+            // For find-distance levels:
+            // - Target shows USER's answer (so they can see if car stops there)
+            // - Only show AFTER simulation starts/completes
+            if (this.state === CONSTANTS.GAME_STATES.SIMULATING || this.state === CONSTANTS.GAME_STATES.RESULT) {
+                const userDistance = parseFloat(this.userInputs.distance) || 0;
+                if (userDistance > 0) {
+                    targetX = userDistance;
+                }
+            }
+        } else {
+            // For find-velocity or find-time levels, target is the given distance
+            targetX = given.distance?.value || given.targetX?.value || 0;
+        }
+
         if (targetX > 0) {
             const targetY = given.targetY?.value || 0;
             this.renderer.drawTarget(targetX, 1, targetY);
@@ -330,6 +358,9 @@ class Engine {
      * Draw scene for linear motion (GLB/GLBB)
      */
     drawLinearScene() {
+        const level = this.currentLevel;
+        const findType = level?.find?.[0];
+
         // Draw trail
         this.renderer.drawTrail();
 
@@ -338,6 +369,14 @@ class Engine {
         if (this.isAnimating || this.state === CONSTANTS.GAME_STATES.RESULT) {
             const position = this.physics.getPositionAtTime(this.animationTime, this.userInputs);
             x = position.x;
+        }
+
+        // For find-distance levels, show user's answer marker
+        if (findType === 'distance' && this.state === CONSTANTS.GAME_STATES.RESULT) {
+            const userDistance = parseFloat(this.userInputs.distance) || 0;
+            if (userDistance > 0) {
+                this.renderer.drawUserAnswerMarker(userDistance, 'Jawabanmu');
+            }
         }
 
         // Draw car
@@ -349,26 +388,29 @@ class Engine {
      */
     drawParabolaScene() {
         const given = this.currentLevel.given || {};
+        const initialHeight = given.initialHeight?.value || 0;
 
         // Draw cannon
         const angle = parseFloat(this.userInputs.angle) || 45;
-        this.renderer.drawCannon(0, given.initialHeight?.value || 0, angle);
+        this.renderer.drawCannon(0, initialHeight, angle);
 
         // Draw trajectory preview (before simulation)
         if (this.state === CONSTANTS.GAME_STATES.PLAYING && this.physics instanceof ParabolaPhysics) {
             const points = this.physics.getTrajectoryPoints(this.userInputs, 30);
             this.renderer.drawTrajectoryPreview(points);
+
+            // Also draw ball at initial position during PLAYING state
+            this.renderer.drawBall(0, initialHeight);
         }
 
         // Draw trail
         this.renderer.drawTrail();
 
-        // Draw ball during animation
+        // Draw ball during animation or result
         if (this.isAnimating || this.state === CONSTANTS.GAME_STATES.RESULT) {
             const position = this.physics.getPositionAtTime(this.animationTime, this.userInputs);
-            if (position.y >= 0) {
-                this.renderer.drawBall(position.x, position.y);
-            }
+            // Draw at current position (clamp y to 0 minimum)
+            this.renderer.drawBall(position.x, Math.max(0, position.y));
         }
     }
 

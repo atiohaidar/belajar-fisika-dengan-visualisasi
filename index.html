@@ -156,7 +156,7 @@
         <section id="gameScreen" class="hidden">
             <div class="grid lg:grid-cols-3 gap-6">
 
-                <!-- Left Panel: Question & Input -->
+                <!-- Left Panel: Question & Formula Only -->
                 <div class="lg:col-span-1 space-y-4">
 
                     <!-- Question Panel -->
@@ -185,39 +185,26 @@
                         </div>
                     </div>
 
-                    <!-- Input Panel -->
-                    <div id="inputPanel" class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6">
+                    <!-- Explanation Panel (Moved here for better flow) -->
+                    <div id="explanationPanel"
+                        class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6 hidden">
                         <div class="flex items-center gap-2 mb-4">
-                            <span class="text-2xl">✏️</span>
-                            <h3 class="font-bold text-lg">Jawaban</h3>
+                            <span class="text-2xl">📖</span>
+                            <h3 class="font-bold text-lg">Penjelasan</h3>
                         </div>
 
-                        <form id="answerForm" class="space-y-4">
-                            <div id="inputFields">
-                                <!-- Will be filled dynamically -->
-                            </div>
-
-                            <button type="submit" id="submitBtn"
-                                class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 px-6 py-3 rounded-xl font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2">
-                                <span>🚀</span>
-                                <span>Jalankan Simulasi</span>
-                            </button>
-                        </form>
-
-                        <button id="hintBtn"
-                            class="w-full mt-3 bg-slate-700/50 hover:bg-slate-700 px-4 py-2 rounded-xl text-sm text-slate-400 hover:text-white transition-colors flex items-center justify-center gap-2">
-                            <span>💡</span>
-                            <span>Tampilkan Petunjuk</span>
-                        </button>
+                        <div id="explanationContent" class="prose prose-invert max-w-none">
+                            <!-- Will be filled dynamically -->
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right Panel: Visualization & Feedback -->
+                <!-- Right Panel: Canvas + Input (Close Together) + Feedback -->
                 <div class="lg:col-span-2 space-y-4">
 
                     <!-- Canvas Container -->
                     <div class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-4 relative">
-                        <canvas id="gameCanvas" class="w-full rounded-xl bg-slate-900" style="height: 400px;"></canvas>
+                        <canvas id="gameCanvas" class="w-full rounded-xl bg-slate-900" style="height: 350px;"></canvas>
 
                         <!-- Simulation Info Overlay -->
                         <div id="simInfo"
@@ -244,23 +231,37 @@
                         </div>
                     </div>
 
+                    <!-- Input Panel (Now directly below Canvas!) -->
+                    <div id="inputPanel" class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-2xl">✏️</span>
+                                <h3 class="font-bold text-lg">Jawaban</h3>
+                            </div>
+                            <button id="hintBtn"
+                                class="bg-slate-700/50 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                                <span>💡</span>
+                                <span>Petunjuk</span>
+                            </button>
+                        </div>
+
+                        <form id="answerForm">
+                            <div id="inputFields" class="grid md:grid-cols-2 gap-4 mb-4">
+                                <!-- Will be filled dynamically -->
+                            </div>
+
+                            <button type="submit" id="submitBtn"
+                                class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 px-6 py-3 rounded-xl font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2">
+                                <span>🚀</span>
+                                <span>Jalankan Simulasi</span>
+                            </button>
+                        </form>
+                    </div>
+
                     <!-- Feedback Panel -->
                     <div id="feedbackPanel"
                         class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6 hidden">
                         <div id="feedbackContent">
-                            <!-- Will be filled dynamically -->
-                        </div>
-                    </div>
-
-                    <!-- Explanation Panel -->
-                    <div id="explanationPanel"
-                        class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-6 hidden">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="text-2xl">📖</span>
-                            <h3 class="font-bold text-lg">Penjelasan</h3>
-                        </div>
-
-                        <div id="explanationContent" class="prose prose-invert max-w-none">
                             <!-- Will be filled dynamically -->
                         </div>
                     </div>
@@ -316,19 +317,41 @@
     </footer>
 
     <!-- Scripts -->
+    <!-- Config -->
+    <script src="js/config.js"></script>
+
+    <!-- Utils -->
     <script src="js/utils/constants.js"></script>
     <script src="js/utils/helpers.js"></script>
     <script src="js/utils/storage.js"></script>
+
+    <!-- Physics -->
     <script src="js/physics/PhysicsBase.js"></script>
     <script src="js/physics/GLBPhysics.js"></script>
     <script src="js/physics/GLBBPhysics.js"></script>
     <script src="js/physics/ParabolaPhysics.js"></script>
+
+    <!-- Core (order matters: modules first, then classes that use them) -->
+    <script src="js/core/Sprites.js"></script>
+    <script src="js/core/Environment.js"></script>
+    <script src="js/core/TrailManager.js"></script>
     <script src="js/core/Renderer.js"></script>
     <script src="js/core/Engine.js"></script>
+    <script src="js/core/EventManager.js"></script>
+
+    <!-- Levels (must be before LevelManager) -->
+    <script src="js/levels/glb-levels.js"></script>
+    <script src="js/levels/glbb-levels.js"></script>
+    <script src="js/levels/parabola-levels.js"></script>
     <script src="js/levels/LevelManager.js"></script>
+
+    <!-- UI -->
+    <script src="js/ui/UIManager.js"></script>
     <script src="js/ui/QuestionPanel.js"></script>
     <script src="js/ui/InputPanel.js"></script>
     <script src="js/ui/FeedbackPanel.js"></script>
+
+    <!-- Main App -->
     <script src="js/main.js"></script>
 </body>
 

@@ -58,9 +58,9 @@ class GLBBPhysics extends PhysicsBase {
         return {
             initialVelocity: v0,
             acceleration: a,
-            finalPosition,
-            finalTime,
-            finalVelocity,
+            finalPosition: Helpers.roundTo(finalPosition, 2),
+            finalTime: Helpers.roundTo(finalTime, 2),
+            finalVelocity: Helpers.roundTo(finalVelocity, 2),
             targetDistance,
             targetTime,
             reachedTarget: Math.abs(finalPosition - targetDistance) < (targetDistance * this.tolerance || 0.5),
@@ -81,7 +81,7 @@ class GLBBPhysics extends PhysicsBase {
         const x = (v0 * t) + (0.5 * a * t * t);
 
         return {
-            x: x,
+            x: Helpers.roundTo(x, 2),
             y: 0  // GLBB horizontal
         };
     }
@@ -100,9 +100,9 @@ class GLBBPhysics extends PhysicsBase {
         const vx = v0 + (a * t);
 
         return {
-            vx: vx,
+            vx: Helpers.roundTo(vx, 2),
             vy: 0,
-            magnitude: Math.abs(vx)
+            magnitude: Helpers.roundTo(Math.abs(vx), 2)
         };
     }
 

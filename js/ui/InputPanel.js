@@ -100,7 +100,12 @@ const InputPanel = {
         const inputs = {};
 
         for (const [id, value] of Object.entries(this.currentInputs)) {
-            inputs[id] = parseFloat(value) || 0;
+            // Don't convert empty strings to 0 - let physics handle defaults
+            if (value === '' || value === undefined || value === null) {
+                inputs[id] = '';
+            } else {
+                inputs[id] = parseFloat(value);
+            }
         }
 
         return inputs;
