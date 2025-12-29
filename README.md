@@ -14,6 +14,7 @@ Game Fisika/
 ├── style.css               # Custom styles
 ├── js/
 │   ├── main.js             # App entry point & coordination
+│   ├── config.js           # Main configuration
 │   │
 │   ├── core/
 │   │   ├── Engine.js       # Game loop & physics coordination
@@ -21,9 +22,13 @@ Game Fisika/
 │   │   ├── Environment.js  # Background, grid, axes
 │   │   ├── Sprites.js      # Game entities (car, ball)
 │   │   └── TrailManager.js # Trajectory visualization
+│   │   └── EventManager.js # Central event bus
 │   │
 │   ├── levels/
-│   │   └── LevelManager.js # All level configurations & progress
+│   │   ├── LevelManager.js # Level flow management
+│   │   ├── glb-levels.js   # GLB Level Data
+│   │   ├── glbb-levels.js  # GLBB Level Data
+│   │   └── parabola-levels.js # Parabola Level Data
 │   │
 │   ├── physics/
 │   │   ├── PhysicsBase.js      # Base physics class
@@ -35,6 +40,9 @@ Game Fisika/
 │   │   ├── QuestionPanel.js    # Question display
 │   │   ├── InputPanel.js       # Input fields
 │   │   └── FeedbackPanel.js    # Result feedback
+│   │
+│   ├── state/
+│   │   └── GameState.js    # Central state management
 │   │
 │   └── utils/
 │       ├── constants.js    # Game constants

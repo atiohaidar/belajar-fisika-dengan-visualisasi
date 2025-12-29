@@ -17,12 +17,12 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(100, 116, 139, 0.5);
+    background: rgba(148, 163, 184, 0.5);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(100, 116, 139, 0.8);
+    background: rgba(167, 139, 250, 0.8);
 }
 
 /* Canvas styles */
@@ -48,11 +48,11 @@ input[type="number"] {
 
     0%,
     100% {
-        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
     }
 
     50% {
-        box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+        box-shadow: 0 0 40px rgba(236, 72, 153, 0.6);
     }
 }
 
@@ -139,18 +139,19 @@ input[type="number"] {
 
 /* Formula styling */
 .formula {
-    font-family: 'Times New Roman', serif;
+    font-family: 'Courier New', monospace;
     font-size: 1.25rem;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(34, 211, 238, 0.1));
     padding: 0.75rem 1rem;
     border-radius: 0.75rem;
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(236, 72, 153, 0.2);
     text-align: center;
 }
 
 .formula-highlight {
-    color: #60a5fa;
+    color: #22d3ee;
     font-weight: bold;
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
 }
 
 /* Input field styling */
@@ -169,8 +170,8 @@ input[type="number"] {
 
 .input-field:focus {
     outline: none;
-    border-color: rgba(59, 130, 246, 0.8);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    border-color: rgba(236, 72, 153, 0.8);
+    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.2);
 }
 
 .input-field.error {
@@ -179,8 +180,8 @@ input[type="number"] {
 }
 
 .input-field.success {
-    border-color: rgba(16, 185, 129, 0.8);
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    border-color: rgba(234, 179, 8, 0.8);
+    box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.2);
 }
 
 /* Given values styling */
@@ -200,15 +201,16 @@ input[type="number"] {
 }
 
 .given-number {
-    color: #60a5fa;
+    color: #22d3ee;
     font-weight: bold;
     font-size: 1rem;
+    text-shadow: 0 0 5px rgba(34, 211, 238, 0.3);
 }
 
 /* Feedback styling */
 .feedback-success {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
-    border: 2px solid rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(234, 179, 8, 0.1));
+    border: 2px solid rgba(234, 179, 8, 0.5);
 }
 
 .feedback-partial {
@@ -223,8 +225,8 @@ input[type="number"] {
 
 /* Hint styling */
 .hint-item {
-    background: rgba(59, 130, 246, 0.1);
-    border-left: 3px solid #3b82f6;
+    background: rgba(236, 72, 153, 0.1);
+    border-left: 3px solid #ec4899;
     padding: 0.75rem 1rem;
     margin-bottom: 0.5rem;
     border-radius: 0 0.5rem 0.5rem 0;
@@ -244,12 +246,12 @@ input[type="number"] {
 }
 
 .level-card:hover:not(.locked) {
-    border-color: rgba(59, 130, 246, 0.5);
-    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(236, 72, 153, 0.5);
+    background: rgba(236, 72, 153, 0.1);
 }
 
 .level-card.completed {
-    border-color: rgba(16, 185, 129, 0.5);
+    border-color: rgba(234, 179, 8, 0.5);
 }
 
 .level-card.locked {
@@ -258,8 +260,8 @@ input[type="number"] {
 }
 
 .level-card.current {
-    border-color: rgba(59, 130, 246, 0.8);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    border-color: rgba(236, 72, 153, 0.8);
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
 }
 
 /* Explanation step styling */
@@ -276,7 +278,8 @@ input[type="number"] {
     justify-content: center;
     width: 1.5rem;
     height: 1.5rem;
-    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    height: 1.5rem;
+    background: linear-gradient(135deg, #ec4899, #22d3ee);
     border-radius: 50%;
     font-size: 0.75rem;
     font-weight: bold;

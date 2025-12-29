@@ -106,10 +106,10 @@ export const Environment = {
             const label = `${Math.round(x)}m`;
             const textWidth = ctx.measureText(label).width;
 
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.8)';
             ctx.fillRect(px - textWidth / 2 - 4, py + 10, textWidth + 8, 20);
 
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = CONSTANTS.CANVAS.TEXT_COLOR;
             ctx.fillText(label, px, py + 25);
         }
     },
@@ -202,7 +202,7 @@ export const Environment = {
         // Distance label
         const label = `Target: ${x}m`;
         const textWidth = ctx.measureText(label).width;
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.9)';
+        ctx.fillStyle = 'rgba(250, 204, 21, 0.9)'; // Match Target Color
         ctx.fillRect(px - textWidth / 2 - 6, py - 115, textWidth + 12, 20);
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 12px system-ui, sans-serif';
@@ -219,8 +219,8 @@ export const Environment = {
         const ctx = renderer.ctx;
         const { px, py } = renderer.worldToPixel(x, 0);
 
-        // Vertical line (dashed, blue)
-        ctx.strokeStyle = '#3b82f6';
+        // Vertical line (dashed, neon pink)
+        ctx.strokeStyle = CONSTANTS.COLORS.CAR;
         ctx.lineWidth = 2;
         ctx.setLineDash([5, 5]);
         ctx.beginPath();
@@ -230,7 +230,7 @@ export const Environment = {
         ctx.setLineDash([]);
 
         // Arrow marker
-        ctx.fillStyle = '#3b82f6';
+        ctx.fillStyle = CONSTANTS.COLORS.CAR;
         ctx.beginPath();
         ctx.moveTo(px, py - 50);
         ctx.lineTo(px - 8, py - 60);
@@ -242,7 +242,7 @@ export const Environment = {
         const fullLabel = `${label}: ${x}m`;
         ctx.font = 'bold 11px system-ui, sans-serif';
         const textWidth = ctx.measureText(fullLabel).width;
-        ctx.fillStyle = 'rgba(59, 130, 246, 0.9)';
+        ctx.fillStyle = 'rgba(236, 72, 153, 0.9)'; // Neon Pink background for label
         ctx.fillRect(px - textWidth / 2 - 4, py - 85, textWidth + 8, 18);
         ctx.fillStyle = '#ffffff';
         ctx.fillText(fullLabel, px, py - 71);

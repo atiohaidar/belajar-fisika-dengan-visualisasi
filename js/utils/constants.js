@@ -14,21 +14,21 @@ export const CONSTANTS = {
     // Pengaturan Canvas
     CANVAS: {
         PADDING: 60,           // Padding dalam pixel
-        GRID_COLOR: 'rgba(100, 116, 139, 0.2)',
-        AXIS_COLOR: 'rgba(100, 116, 139, 0.5)',
-        TEXT_COLOR: '#94a3b8',
-        GROUND_COLOR: '#1e293b',
-        SKY_GRADIENT: ['#0f172a', '#1e3a5f'],
+        GRID_COLOR: 'rgba(56, 189, 248, 0.2)', // Cyan grid (Modern)
+        AXIS_COLOR: 'rgba(148, 163, 184, 0.5)', // Slate axis
+        TEXT_COLOR: '#f1f5f9', // Slate 100 for better contrast
+        GROUND_COLOR: '#020617', // Slate 950 (Deep dark ground)
+        SKY_GRADIENT: ['#0f172a', '#1e1b4b'], // Slate 900 to Indigo 950 (Deep Space)
     },
 
     // Warna Entitas
     COLORS: {
-        CAR: '#3b82f6',        // Biru untuk mobil
-        BALL: '#f59e0b',       // Kuning untuk bola
-        TARGET: '#10b981',     // Hijau untuk target
-        TARGET_ZONE: 'rgba(16, 185, 129, 0.2)',
-        TRAJECTORY: '#60a5fa', // Biru muda untuk lintasan
-        TRAJECTORY_PREDICT: 'rgba(96, 165, 250, 0.3)',
+        CAR: '#ec4899',        // Pink 500 (Neon Pink) - Lebih menonjol dari biru standar
+        BALL: '#22d3ee',       // Cyan 400 (Electric Blue) - Kontras tinggi dengan background gelap
+        TARGET: '#facc15',     // Yellow 400 (Gold/Warning) - Lebih jelas sebagai target
+        TARGET_ZONE: 'rgba(250, 204, 21, 0.2)', // Matching Yellow glow
+        TRAJECTORY: '#a78bfa', // Violet 400 (Soft Purple) - Elegan untuk lintasan
+        TRAJECTORY_PREDICT: 'rgba(167, 139, 250, 0.3)',
     },
 
     // Pengaturan Animasi

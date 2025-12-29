@@ -66,11 +66,11 @@ export const FeedbackPanel = {
                             <button id="retryBtn" class="px-6 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg font-medium transition-colors flex items-center gap-2">
                                 <span>🔄</span> Coba Lagi
                             </button>
-                            <button id="showExplanationBtn" class="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium transition-colors flex items-center gap-2">
+                            <button id="showExplanationBtn" class="px-6 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg font-medium transition-colors flex items-center gap-2">
                                 <span>📖</span> Lihat Penjelasan
                             </button>
                             ${result.allCorrect || result.stars >= 1 ? `
-                                <button id="nextLevelBtn" class="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 rounded-lg font-medium transition-colors flex items-center gap-2">
+                                <button id="nextLevelBtn" class="px-6 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 rounded-lg font-medium transition-colors flex items-center gap-2">
                                     <span>➡️</span> Level Berikutnya
                                 </button>
                             ` : ''}
@@ -123,12 +123,12 @@ export const FeedbackPanel = {
                     <div class="flex items-center justify-between">
                         <span class="text-slate-400">${label}:</span>
                         <div class="flex items-center gap-2">
-                            <span class="${data.isCorrect ? 'text-green-400' : 'text-red-400'} font-medium">
+                            <span class="${data.isCorrect ? 'text-yellow-400' : 'text-red-400'} font-medium">
                                 ${Helpers.roundTo(data.userValue, 2)} ${unit}
                             </span>
                             ${!data.isCorrect ? `
                                 <span class="text-slate-500">→</span>
-                                <span class="text-blue-400">${Helpers.roundTo(data.expectedValue, 2)} ${unit}</span>
+                                <span class="text-pink-400">${Helpers.roundTo(data.expectedValue, 2)} ${unit}</span>
                             ` : ''}
                             <span>${data.isCorrect ? '✅' : '❌'}</span>
                         </div>

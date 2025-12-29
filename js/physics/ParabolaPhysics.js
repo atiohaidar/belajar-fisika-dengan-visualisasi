@@ -317,8 +317,8 @@ export class ParabolaPhysics extends PhysicsBase {
             content: `
                 <p class="text-slate-300 mb-2">Kecepatan awal diuraikan menjadi komponen horizontal dan vertikal:</p>
                 <div class="bg-slate-800/50 p-3 rounded-lg space-y-2">
-                    <p class="text-blue-300">vₓ = v₀ × cos(${angleDeg}°) = ${Helpers.roundTo(result.vx, 2)} m/s</p>
-                    <p class="text-blue-300">vᵧ = v₀ × sin(${angleDeg}°) = ${Helpers.roundTo(result.vy, 2)} m/s</p>
+                    <p class="text-pink-300">vₓ = v₀ × cos(${angleDeg}°) = ${Helpers.roundTo(result.vx, 2)} m/s</p>
+                    <p class="text-pink-300">vᵧ = v₀ × sin(${angleDeg}°) = ${Helpers.roundTo(result.vy, 2)} m/s</p>
                 </div>
             `,
             formula: null
@@ -345,8 +345,8 @@ export class ParabolaPhysics extends PhysicsBase {
             title: 'Langkah 4: Hasil Perhitungan',
             content: `
                 <div class="bg-slate-800/50 p-3 rounded-lg space-y-2">
-                    <p class="text-slate-300">Waktu di udara: <span class="text-blue-300 font-bold">${result.timeOfFlight} s</span></p>
-                    <p class="text-slate-300">Jangkauan: <span class="text-green-300 font-bold">${result.range} m</span></p>
+                    <p class="text-slate-300">Waktu di udara: <span class="text-pink-300 font-bold">${result.timeOfFlight} s</span></p>
+                    <p class="text-slate-300">Jangkauan: <span class="text-yellow-300 font-bold">${result.range} m</span></p>
                     <p class="text-slate-300">Tinggi maksimum: <span class="text-purple-300 font-bold">${result.maxHeight} m</span></p>
                 </div>
             `,
@@ -357,14 +357,14 @@ export class ParabolaPhysics extends PhysicsBase {
         steps.push({
             title: 'Langkah 5: Evaluasi',
             content: `
-                <div class="${result.reachedTarget ? 'bg-green-900/30 border-green-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
-                    <p class="${result.reachedTarget ? 'text-green-300' : 'text-red-300'}">
+                <div class="${result.reachedTarget ? 'bg-yellow-900/30 border-yellow-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
+                    <p class="${result.reachedTarget ? 'text-yellow-300' : 'text-red-300'}">
                         Posisi jatuh: ${result.hitX} m
                     </p>
-                    <p class="${result.reachedTarget ? 'text-green-300' : 'text-red-300'}">
+                    <p class="${result.reachedTarget ? 'text-yellow-300' : 'text-red-300'}">
                         Target: ${targetX} m
                     </p>
-                    <p class="${result.reachedTarget ? 'text-green-300' : 'text-red-300'} font-bold mt-2">
+                    <p class="${result.reachedTarget ? 'text-yellow-300' : 'text-red-300'} font-bold mt-2">
                         ${result.reachedTarget
                     ? '✅ Tepat sasaran!'
                     : `❌ ${result.hitX < targetX ? 'Terlalu pendek' : 'Terlalu jauh'} ${result.distanceToTarget} m`

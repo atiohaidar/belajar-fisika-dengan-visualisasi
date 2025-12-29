@@ -15,19 +15,19 @@
                 extend: {
                     colors: {
                         primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f9a8d4',
+                            400: '#f472b6',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
                         },
-                        success: '#10b981',
-                        warning: '#f59e0b',
+                        success: '#facc15', // Yellow for success in this theme
+                        warning: '#f97316', // Orange
                         danger: '#ef4444',
                     }
                 }
@@ -46,7 +46,7 @@
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <span class="text-2xl">🎮</span>
-                <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                <h1 class="text-xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
                     Fisika Game
                 </h1>
             </div>
@@ -54,7 +54,7 @@
             <div class="flex items-center gap-4">
                 <div id="levelIndicator" class="hidden md:flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full">
                     <span class="text-slate-400 text-sm">Level</span>
-                    <span id="currentLevel" class="font-bold text-blue-400">1</span>
+                    <span id="currentLevel" class="font-bold text-pink-400">1</span>
                     <span class="text-slate-500">/</span>
                     <span id="totalLevels" class="text-slate-400">15</span>
                 </div>
@@ -82,7 +82,7 @@
         <section id="menuScreen" class="min-h-[80vh] flex flex-col items-center justify-center">
             <div class="text-center mb-12">
                 <h2
-                    class="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                    class="text-5xl font-bold mb-4 bg-gradient-to-r from-pink-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
                     🚀 Fisika Game
                 </h2>
                 <p class="text-slate-400 text-lg max-w-md mx-auto">
@@ -97,16 +97,16 @@
                 <!-- GLB Card -->
                 <button class="topic-card group" data-topic="glb">
                     <div
-                        class="bg-gradient-to-br from-blue-600/20 to-blue-800/20 p-6 rounded-2xl border border-blue-500/30 hover:border-blue-400/50 transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20">
+                        class="bg-gradient-to-br from-pink-600/20 to-pink-800/20 p-6 rounded-2xl border border-pink-500/30 hover:border-pink-400/50 transition-all hover:scale-105 hover:shadow-lg hover:shadow-pink-500/20">
                         <div class="text-4xl mb-4">🚗</div>
-                        <h3 class="text-xl font-bold text-blue-300 mb-2">GLB</h3>
+                        <h3 class="text-xl font-bold text-pink-300 mb-2">GLB</h3>
                         <p class="text-slate-400 text-sm mb-4">Gerak Lurus Beraturan</p>
                         <div class="text-xs text-slate-500 bg-slate-800/50 px-3 py-1 rounded-full inline-block">
                             v = s / t
                         </div>
                         <div class="mt-4 flex items-center justify-between text-sm">
                             <span class="text-slate-500">Level 1-7</span>
-                            <span id="glbProgress" class="text-blue-400">0/7 ⭐</span>
+                            <span id="glbProgress" class="text-pink-400">0/7 ⭐</span>
                         </div>
                     </div>
                 </button>
@@ -147,7 +147,7 @@
             </div>
 
             <button id="continueBtn"
-                class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 px-8 py-3 rounded-full font-bold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
+                class="bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600 px-8 py-3 rounded-full font-bold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30">
                 🎮 Lanjutkan Permainan
             </button>
         </section>
@@ -212,13 +212,13 @@
                             <div class="flex items-center justify-around text-center">
                                 <div>
                                     <div class="text-slate-400 text-sm">Waktu</div>
-                                    <div id="simTime" class="text-2xl font-bold text-blue-400">0.0 <span
+                                    <div id="simTime" class="text-2xl font-bold text-pink-400">0.0 <span
                                             class="text-sm">s</span></div>
                                 </div>
                                 <div class="w-px h-12 bg-slate-700"></div>
                                 <div>
                                     <div class="text-slate-400 text-sm">Posisi</div>
-                                    <div id="simPosition" class="text-2xl font-bold text-green-400">0.0 <span
+                                    <div id="simPosition" class="text-2xl font-bold text-yellow-400">0.0 <span
                                             class="text-sm">m</span></div>
                                 </div>
                                 <div class="w-px h-12 bg-slate-700"></div>
@@ -251,7 +251,7 @@
                             </div>
 
                             <button type="submit" id="submitBtn"
-                                class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 px-6 py-3 rounded-xl font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2">
+                                class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 px-6 py-3 rounded-xl font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2">
                                 <span>🚀</span>
                                 <span>Jalankan Simulasi</span>
                             </button>

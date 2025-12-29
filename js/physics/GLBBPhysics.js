@@ -175,8 +175,8 @@ export class GLBBPhysics extends PhysicsBase {
             content: `
                 <div class="bg-slate-800/50 p-3 rounded-lg space-y-2">
                     <p class="text-slate-300">Dengan v₀ = ${v0} m/s dan a = ${a} m/s²:</p>
-                    <p class="text-blue-300">s = (${v0} × ${targetTime || result.finalTime}) + ½ × ${a} × ${targetTime || result.finalTime}²</p>
-                    <p class="text-blue-300 font-bold">s = ${Helpers.roundTo(result.finalPosition, 2)} m</p>
+                    <p class="text-cyan-300">s = (${v0} × ${targetTime || result.finalTime}) + ½ × ${a} × ${targetTime || result.finalTime}²</p>
+                    <p class="text-cyan-300 font-bold">s = ${Helpers.roundTo(result.finalPosition, 2)} m</p>
                 </div>
             `,
             formula: null
@@ -188,14 +188,14 @@ export class GLBBPhysics extends PhysicsBase {
         steps.push({
             title: 'Langkah 4: Evaluasi',
             content: `
-                <div class="${reachedTarget ? 'bg-green-900/30 border-green-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
-                    <p class="${reachedTarget ? 'text-green-300' : 'text-red-300'}">
+                <div class="${reachedTarget ? 'bg-yellow-900/30 border-yellow-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
+                    <p class="${reachedTarget ? 'text-yellow-300' : 'text-red-300'}">
                         Posisi akhir: ${Helpers.roundTo(result.finalPosition, 2)} m
                     </p>
-                    <p class="${reachedTarget ? 'text-green-300' : 'text-red-300'}">
+                    <p class="${reachedTarget ? 'text-yellow-300' : 'text-red-300'}">
                         Target: ${targetDistance} m
                     </p>
-                    <p class="${reachedTarget ? 'text-green-300' : 'text-red-300'} font-bold mt-2">
+                    <p class="${reachedTarget ? 'text-yellow-300' : 'text-red-300'} font-bold mt-2">
                         ${reachedTarget
                     ? '✅ Tepat sasaran!'
                     : `❌ Selisih ${Helpers.roundTo(Math.abs(result.finalPosition - targetDistance), 2)} m dari target`

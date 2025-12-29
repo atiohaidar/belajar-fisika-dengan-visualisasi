@@ -202,8 +202,8 @@ export class GLBPhysics extends PhysicsBase {
             steps.push({
                 title: 'Langkah 4: Hasil',
                 content: `
-                    <div class="bg-blue-900/30 p-3 rounded-lg border border-blue-500/30">
-                        <p class="text-blue-300 font-bold">v = ${expectedVelocity} m/s</p>
+                    <div class="bg-cyan-900/30 p-3 rounded-lg border border-cyan-500/30">
+                        <p class="text-cyan-300 font-bold">v = ${expectedVelocity} m/s</p>
                     </div>
                 `,
                 formula: null
@@ -215,11 +215,11 @@ export class GLBPhysics extends PhysicsBase {
             steps.push({
                 title: 'Langkah 5: Evaluasi Jawaban',
                 content: `
-                    <div class="${isCorrect ? 'bg-green-900/30 border-green-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
-                        <p class="${isCorrect ? 'text-green-300' : 'text-red-300'}">
+                    <div class="${isCorrect ? 'bg-yellow-900/30 border-yellow-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
+                        <p class="${isCorrect ? 'text-yellow-300' : 'text-red-300'}">
                             Jawaban kamu: ${userVelocity} m/s
                         </p>
-                        <p class="${isCorrect ? 'text-green-300' : 'text-red-300'}">
+                        <p class="${isCorrect ? 'text-yellow-300' : 'text-red-300'}">
                             ${isCorrect ? '✅ Benar!' : `❌ Selisih ${Helpers.roundTo(error * 100, 1)}% dari jawaban yang benar`}
                         </p>
                     </div>
@@ -248,8 +248,8 @@ export class GLBPhysics extends PhysicsBase {
             steps.push({
                 title: 'Langkah 4: Hasil',
                 content: `
-                    <div class="bg-blue-900/30 p-3 rounded-lg border border-blue-500/30">
-                        <p class="text-blue-300 font-bold">s = ${expectedDistance} m</p>
+                    <div class="bg-cyan-900/30 p-3 rounded-lg border border-cyan-500/30">
+                        <p class="text-cyan-300 font-bold">s = ${expectedDistance} m</p>
                     </div>
                 `,
                 formula: null
@@ -261,11 +261,11 @@ export class GLBPhysics extends PhysicsBase {
             steps.push({
                 title: 'Langkah 5: Evaluasi Jawaban',
                 content: `
-                    <div class="${isCorrect ? 'bg-green-900/30 border-green-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
-                        <p class="${isCorrect ? 'text-green-300' : 'text-red-300'}">
+                    <div class="${isCorrect ? 'bg-yellow-900/30 border-yellow-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
+                        <p class="${isCorrect ? 'text-yellow-300' : 'text-red-300'}">
                             Jawaban kamu: ${userDistance} m
                         </p>
-                        <p class="${isCorrect ? 'text-green-300' : 'text-red-300'}">
+                        <p class="${isCorrect ? 'text-yellow-300' : 'text-red-300'}">
                             ${isCorrect ? '✅ Benar!' : `❌ Selisih ${Helpers.roundTo(error * 100, 1)}% dari jawaban yang benar`}
                         </p>
                     </div>
@@ -294,8 +294,8 @@ export class GLBPhysics extends PhysicsBase {
             steps.push({
                 title: 'Langkah 4: Hasil',
                 content: `
-                    <div class="bg-blue-900/30 p-3 rounded-lg border border-blue-500/30">
-                        <p class="text-blue-300 font-bold">t = ${expectedTime} s</p>
+                    <div class="bg-cyan-900/30 p-3 rounded-lg border border-cyan-500/30">
+                        <p class="text-cyan-300 font-bold">t = ${expectedTime} s</p>
                     </div>
                 `,
                 formula: null
@@ -307,11 +307,11 @@ export class GLBPhysics extends PhysicsBase {
             steps.push({
                 title: 'Langkah 5: Evaluasi Jawaban',
                 content: `
-                    <div class="${isCorrect ? 'bg-green-900/30 border-green-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
-                        <p class="${isCorrect ? 'text-green-300' : 'text-red-300'}">
+                    <div class="${isCorrect ? 'bg-yellow-900/30 border-yellow-500/30' : 'bg-red-900/30 border-red-500/30'} p-3 rounded-lg border">
+                        <p class="${isCorrect ? 'text-yellow-300' : 'text-red-300'}">
                             Jawaban kamu: ${userTime} s
                         </p>
-                        <p class="${isCorrect ? 'text-green-300' : 'text-red-300'}">
+                        <p class="${isCorrect ? 'text-yellow-300' : 'text-red-300'}">
                             ${isCorrect ? '✅ Benar!' : `❌ Selisih ${Helpers.roundTo(error * 100, 1)}% dari jawaban yang benar`}
                         </p>
                     </div>
