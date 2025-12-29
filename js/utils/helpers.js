@@ -3,6 +3,8 @@
  * Fungsi-fungsi bantu yang digunakan di seluruh game
  */
 
+import { CONSTANTS } from './constants.js';
+
 export const Helpers = {
     /**
      * Konversi derajat ke radian
