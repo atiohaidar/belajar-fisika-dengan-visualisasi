@@ -24,6 +24,7 @@ export class Engine {
 
         // Animation
         this.isAnimating = false;
+        this.isPaused = false;
         this.animationTime = 0;
         this.animationSpeed = 1;
         this.animationId = null;
@@ -169,8 +170,10 @@ export class Engine {
         const deltaTime = (now - this.lastFrameTime) / 1000;  // Convert to seconds
         this.lastFrameTime = now;
 
-        // Update time
-        this.animationTime += deltaTime * this.animationSpeed * CONSTANTS.ANIMATION.TIME_SCALE;
+        // Update time (only if not paused)
+        if (!this.isPaused) {
+            this.animationTime += deltaTime * this.animationSpeed * CONSTANTS.ANIMATION.TIME_SCALE;
+        }
 
         // Get total time for animation
         const totalTime = this.physics.getTotalTime(this.userInputs);
@@ -220,10 +223,37 @@ export class Engine {
     }
 
     /**
+     * Skip animation to the end
+     */
+    skipAnimation() {
+        if (!this.isAnimating || !this.physics) return;
+
+        // Jump to end
+        const totalTime = this.physics.getTotalTime(this.userInputs);
+        this.animationTime = totalTime;
+
+        // Complete the simulation
+        this.completeSimulation();
+    }
+
+    /**
+     * Toggle pause/resume animation
+     */
+    togglePauseAnimation() {
+        this.isPaused = !this.isPaused;
+        if (!this.isPaused && this.isAnimating) {
+            this.lastFrameTime = performance.now();
+            this.animationId = requestAnimationFrame(() => this.animate());
+        }
+        return this.isPaused;
+    }
+
+    /**
      * Complete simulation and show results
      */
     completeSimulation() {
         this.isAnimating = false;
+        this.isPaused = false;
         if (this.animationId) {
             cancelAnimationFrame(this.animationId);
         }

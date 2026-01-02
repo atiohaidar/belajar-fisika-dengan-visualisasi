@@ -90,6 +90,26 @@ export class App {
             this.showHints();
         });
 
+        // Skip animation button
+        document.getElementById('skipAnimationBtn')?.addEventListener('click', () => {
+            this.engine.skipAnimation();
+        });
+
+        // Play/Pause animation button
+        document.getElementById('playPauseBtn')?.addEventListener('click', () => {
+            const isPaused = this.engine.togglePauseAnimation();
+            const btn = document.getElementById('playPauseBtn');
+            const icon = document.getElementById('playPauseIcon');
+            const text = document.getElementById('playPauseText');
+            if (isPaused) {
+                icon.textContent = '▶️';
+                text.textContent = 'Play';
+            } else {
+                icon.textContent = '⏸️';
+                text.textContent = 'Pause';
+            }
+        });
+
         // Close modals
         document.getElementById('closeLevelModal')?.addEventListener('click', () => {
             this.hideLevelSelect();
@@ -271,8 +291,18 @@ export class App {
      * @param {string} state - New state
      */
     handleStateChange(state) {
-        if (state === CONSTANTS.GAME_STATES.RESULT) {
+        const animationControls = document.getElementById('animationControls');
+        
+        if (state === CONSTANTS.GAME_STATES.SIMULATING) {
+            // Show animation controls during simulation
+            animationControls?.classList.remove('hidden');
+        } else if (state === CONSTANTS.GAME_STATES.RESULT) {
+            // Hide animation controls when done
+            animationControls?.classList.add('hidden');
             InputPanel.setLoading(false);
+        } else {
+            // Hide animation controls in other states
+            animationControls?.classList.add('hidden');
         }
     }
 

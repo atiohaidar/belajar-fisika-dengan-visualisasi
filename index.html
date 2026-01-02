@@ -206,6 +206,20 @@
                     <div class="bg-slate-800/50 backdrop-blur rounded-2xl border border-slate-700 p-4 relative">
                         <canvas id="gameCanvas" class="w-full rounded-xl bg-slate-900" style="height: 350px;"></canvas>
 
+                        <!-- Animation Controls -->
+                        <div id="animationControls" class="absolute top-6 right-6 flex gap-2 hidden">
+                            <button id="skipAnimationBtn" 
+                                class="bg-slate-700/80 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur">
+                                <span>⏭️</span>
+                                <span>Skip</span>
+                            </button>
+                            <button id="playPauseBtn" 
+                                class="bg-slate-700/80 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 backdrop-blur">
+                                <span id="playPauseIcon">⏸️</span>
+                                <span id="playPauseText">Pause</span>
+                            </button>
+                        </div>
+
                         <!-- Simulation Info Overlay -->
                         <div id="simInfo"
                             class="absolute bottom-6 left-6 right-6 bg-slate-900/80 backdrop-blur rounded-xl p-4 hidden">

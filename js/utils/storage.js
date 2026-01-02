@@ -181,8 +181,25 @@ export const Storage = {
      */
     isLevelUnlocked(levelId) {
         const progress = this.getProgress();
-        // Level 1 selalu terbuka, level lain terbuka jika sebelumnya selesai
-        return levelId === 1 || progress.completedLevels.includes(levelId - 1);
+        
+        // Level 1 selalu terbuka
+        if (levelId === 1) return true;
+
+        // Mapping kategori: kategori -> level pertama
+        // GLB: 1, GLBB: 8, PARABOLA: 11
+        const firstLevelByCategory = {
+            1: 'GLB',
+            8: 'GLBB',
+            11: 'PARABOLA'
+        };
+
+        // Level pertama dari setiap kategori bisa dikerjakan tanpa syarat
+        if (levelId in firstLevelByCategory) {
+            return true;
+        }
+
+        // Level lain terbuka jika level sebelumnya selesai
+        return progress.completedLevels.includes(levelId - 1);
     },
 
     /**
